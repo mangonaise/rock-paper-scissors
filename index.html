@@ -34,15 +34,7 @@
 
             for (let i = 0; i < rounds; i++) {
                 let scoreBefore = score;
-                let userMove = "invalid";
-                while (userMove === "invalid") {
-                    userMove = moveNameToIndex(prompt(`Round ${i+1}\n\nEnter rock, paper or scissors.`).toLowerCase());
-                }
-                userMove = moves[userMove];
-        
-                let computerMove = moves[Math.floor(Math.random() * 3)];
-                alert(getRoundResult(userMove, computerMove));
-                
+                playRound(i);
                 let scoreAfter = score;
                 if (scoreBefore === scoreAfter) i--;
             }
@@ -51,6 +43,17 @@
                 `You won more games than the computer! Nice one.` : 
                 `The computer won more games than you! Better luck next time.`
             );
+        }
+
+        function playRound(roundIndex) {
+            let userMove = "invalid";
+                while (userMove === "invalid") {
+                    userMove = moveNameToIndex(prompt(`Round ${roundIndex+1}\n\nEnter rock, paper or scissors.`).toLowerCase());
+                }
+                userMove = moves[userMove];
+        
+                let computerMove = moves[Math.floor(Math.random() * 3)];
+                alert(getRoundResult(userMove, computerMove));
         }
 
         function getRoundResult(userMove, computerMove) {
