@@ -1,84 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     </head>
     <body>
-    </body>
-    <script>
-        let score;
-
-        class GameMove {
-            constructor(moveName, winsAgainst) {
-                this.moveName = moveName;
-                this.winsAgainst = winsAgainst;
-            }
-        }
-
-        const moves = [
-            new GameMove("rock", "scissors"),
-            new GameMove("paper", "rock"),
-            new GameMove("scissors", "paper")
-        ];
-
-        function moveNameToIndex(moveName) {
-            switch (moveName) {
-                case "rock": return 0;
-                case "paper": return 1;
-                case "scissors": return 2;
-                default: return "invalid";
-            }
-        }
-
-        function playGame(rounds) {
-            score = 0;
-
-            for (let i = 0; i < rounds; i++) {
-                let scoreBefore = score;
-                playRound(i);
-                let scoreAfter = score;
-                if (scoreBefore === scoreAfter) i--;
-            }
-
-            alert(score > 0 ? 
-                `You won more games than the computer! Nice one.` : 
-                `The computer won more games than you! Better luck next time.`
-            );
-        }
-
-        function playRound(roundIndex) {
-            let userMove = "invalid";
-                while (userMove === "invalid") {
-                    userMove = moveNameToIndex(prompt(`Round ${roundIndex+1}\n\nEnter rock, paper or scissors.`).toLowerCase());
-                }
-                userMove = moves[userMove];
+        <div class="main-content">
+            <div id="game-display">
+                <h1>Rock, Paper, Scissors</h1>
+                <h2 id="round-text">Round 1</h2>
+                <div id="score-display">
+                    <span id="point1" class="score-counter"></span>
+                    <span id="point2" class="score-counter"></span>
+                    <span id="point3" class="score-counter"></span>
+                    <span id="point4" class="score-counter"></span>
+                    <span id="point5" class="score-counter"></span>
+                </div>
+                <div class="move-text-container">
+                    <p class="move-text" id="player-move-text">Make your move.</p>
+                    <p class="move-text" id="computer-move-text">It's best of 5.</p>
+                    <p id="result-text">Good luck!</p>
+                </div>
+                
+            </div>
+            
+            <div id="move-selection">
+                <button id="rock" class="default-button">Rock</button>
+                <button id="paper" class="default-button">Paper</button>
+                <button id="scissors" class="default-button">Scissors</button>
+            </div>
+            <div id="game-end-screen">
+                <p id="end-text">You win!</p>
+                <button id="reset-button" class="default-button">Play Again</button>
+            </div>
+        </div>
         
-                let computerMove = moves[Math.floor(Math.random() * 3)];
-                alert(getRoundResult(userMove, computerMove));
-        }
-
-        function getRoundResult(userMove, computerMove) {
-            let output = "";
-            output += `You played ${userMove.moveName}, and the computer played ${computerMove.moveName}.\n\n`;
-            if (userMove.winsAgainst === computerMove.moveName) {
-                output += `${capitalize(userMove.moveName)} beats ${computerMove.moveName}.\n\nYou won!`
-                score += 1;
-            } 
-            else if (computerMove.winsAgainst == userMove.moveName) {
-                output += `${capitalize(userMove.moveName)} beats ${computerMove.moveName}.\n\nThe computer beat you!`
-                score -= 1;
-            } 
-            else {
-                output += "It's a tie! Play again."
-            }
-
-            return output;
-        }
-
-        function capitalize(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
-        // odd numbered games only!
-        playGame(3);
-    </script>
+    </body>
+    <script src="script.js"></script>
 </html>
